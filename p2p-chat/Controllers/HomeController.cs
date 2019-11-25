@@ -5,39 +5,25 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using p2p_chat.Models;
+using p2pchat.Services;
 
 namespace p2p_chat.Controllers
 {
+    [Route("/")]
     public class HomeController : Controller
     {
+        private LoggingService loggingService;
+
+        public HomeController(LoggingService loggingService)
+        {
+            this.loggingService = loggingService;
+        }
+
+
         public IActionResult Index()
         {
+            loggingService.Log("/", "Index", "Info", "");
             return View();
-        }
-
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
-        }
-
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
