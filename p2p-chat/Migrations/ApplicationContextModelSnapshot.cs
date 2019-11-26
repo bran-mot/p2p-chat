@@ -21,13 +21,15 @@ namespace p2pchat.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Sender");
+                    b.Property<int>("SenderId");
 
                     b.Property<string>("Text");
 
                     b.Property<DateTime>("Timestamp");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SenderId");
 
                     b.ToTable("Messages");
                 });
@@ -42,6 +44,14 @@ namespace p2pchat.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("p2pchat.Models.Message", b =>
+                {
+                    b.HasOne("p2pchat.Models.User", "Sender")
+                        .WithMany()
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

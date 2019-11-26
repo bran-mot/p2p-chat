@@ -20,11 +20,7 @@ namespace p2pchat.Services
             using(var db = applicationContext)
             {
                 var checkUser = db.Users.FirstOrDefault(u => u.Username == username);
-                if (checkUser == null)
-                {
-                    db.Users.Add(new User(username));
-                }
-                else
+                if (checkUser != null)
                 {
                     CurrentUser = checkUser;
                 }

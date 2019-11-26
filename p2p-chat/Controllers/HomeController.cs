@@ -8,11 +8,13 @@ namespace p2p_chat.Controllers
     {
         private LoggingService loggingService;
         private UserService userService;
+        private MessageService messageService;
 
-        public HomeController(LoggingService loggingService, UserService userService)
+        public HomeController(LoggingService loggingService, UserService userService, MessageService messageService)
         {
             this.loggingService = loggingService;
             this.userService = userService;
+            this.messageService = messageService;
         }
 
         public IActionResult Index()
@@ -22,7 +24,7 @@ namespace p2p_chat.Controllers
                 return RedirectToAction("Register");
             }
             loggingService.Log("/", "Index", "Info", "");
-            return View();
+            return View(messageService.GetMessages());
         }
 
         [HttpGet("/register")]
@@ -47,6 +49,13 @@ namespace p2p_chat.Controllers
         public IActionResult Main()
         {
             return View();
+        }
+
+        [HttpPost("/send")]
+        public IActionResult Send(string message)
+        {
+            messageService.SendMessage(message);
+            return RedirectToAction("Index");
         }
     }
 }

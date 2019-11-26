@@ -1,5 +1,45 @@
 ﻿@{
-    
+
 }
 
 <h1>Peer to Peer Chat</h1>
+<form action="/update" method="post">
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control" type="text" id="username" name="username" />
+    </div>
+    <button class="btn btn-primary" type="submit">Update</button>
+</form>
+<div class="thread">
+    @if (Model.Count == 0)
+    {
+        <p>No messages to display.</p>
+    }
+    else
+    {
+        foreach (var message in Model)
+        {
+            <div class="card">
+                <div class="card-header">
+                    <small>
+                        <strong>
+                            @message.Sender.Username:
+                        </strong>
+                        <span class="text-right">@message.Timestamp</span>
+                    </small>
+                </div>
+                <div class="card-body">
+                    @message.Text
+                </div> 
+            </div>
+
+        }
+    }
+
+</div>
+<div class="message">
+    <form action="/send" method="post">
+        <textarea name="message"></textarea>
+        <button type="submit">Send</button>
+    </form>
+</div>

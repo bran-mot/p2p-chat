@@ -40,6 +40,7 @@ namespace p2p_chat
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<UserService>();
             services.AddSingleton<LoggingService>();
+            services.AddScoped<MessageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
